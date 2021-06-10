@@ -1,5 +1,6 @@
+const keys = require("../config/keys");
 const redis = require("redis");
-const redisUrl = "redis://localhost:6379";
+const redisUrl = keys.redisUrl;
 const client = redis.createClient(redisUrl);
 const { promisify } = require("util");
 client.hget = promisify(client.hget);

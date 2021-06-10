@@ -35,25 +35,6 @@ describe("When not logged in", async () => {
       });
     }
   });
-
-  // test("can not create blog posts", async () => {
-  //   const result = await page.post("/api/blogs", {
-  //     title: "My title",
-  //     content: "My Content",
-  //   });
-
-  //   expect(result).toEqual({
-  //     error: "You must log in!",
-  //   });
-  // });
-
-  // test("can not get list of posts", async () => {
-  //   const result = await page.get("/api/blogs");
-
-  //   expect(result).toEqual({
-  //     error: "You must log in!",
-  //   });
-  // });
 });
 
 describe("When logged in", async () => {
