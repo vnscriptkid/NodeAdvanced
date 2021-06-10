@@ -21,9 +21,9 @@ test("Clicking login starts oauth flow", async () => {
 
   const url = await page.url();
 
-  expect(url.includes("accounts.google.com/o/oauth2/v2/auth")).toEqual(true);
+  expect(url.includes("accounts.google.com")).toEqual(true);
   // another way
-  expect(url).toMatch(/accounts\.google\.com\/o\/oauth2\/v2\/auth/);
+  expect(url).toMatch(/accounts\.google\.com/);
 });
 
 test("When signed in, show logout button", async () => {
