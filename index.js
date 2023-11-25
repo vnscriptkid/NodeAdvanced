@@ -5,43 +5,49 @@ const passport = require("passport");
 const bodyParser = require("body-parser");
 const keys = require("./config/keys");
 
-require("./models/User");
-require("./models/Blog");
-require("./services/passport");
-require("./services/cache");
+start();
 
-mongoose.Promise = global.Promise;
-mongoose.connect(keys.mongoURI, {
-  useNewUrlParser: true,
-  useCreateIndex: true,
-  useUnifiedTopology: true,
-});
+async function start() {
+  require("./models/User");
+  require("./models/Blog");
+  require("./services/passport");
+  require("./services/cache");
 
-const app = express();
+  console.log("Connecting to MongoDB...");
+  mongoose.Promise = global.Promise;
+  await mongoose.connect(keys.mongoURI, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true,
+  });
+  console.log("Connected to MongoDB.");
 
-app.use(bodyParser.json());
-app.use(
-  cookieSession({
-    maxAge: 30 * 24 * 60 * 60 * 1000,
-    keys: [keys.cookieKey],
-  })
-);
-app.use(passport.initialize());
-app.use(passport.session());
+  const app = express();
 
-require("./routes/authRoutes")(app);
-require("./routes/blogRoutes")(app);
+  app.use(bodyParser.json());
+  app.use(
+    cookieSession({
+      maxAge: 30 * 24 * 60 * 60 * 1000,
+      keys: [keys.cookieKey],
+    })
+  );
+  app.use(passport.initialize());
+  app.use(passport.session());
 
-if (["production", "ci"].includes(process.env.NODE_ENV)) {
-  app.use(express.static("client/build"));
+  require("./routes/authRoutes")(app);
+  require("./routes/blogRoutes")(app);
 
-  const path = require("path");
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve("client", "build", "index.html"));
+  if (["production", "ci"].includes(process.env.NODE_ENV)) {
+    app.use(express.static("client/build"));
+
+    const path = require("path");
+    app.get("*", (req, res) => {
+      res.sendFile(path.resolve("client", "build", "index.html"));
+    });
+  }
+
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => {
+    console.log(`Listening on port`, PORT);
   });
 }
-
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Listening on port`, PORT);
-});
