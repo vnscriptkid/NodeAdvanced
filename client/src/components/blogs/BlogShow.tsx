@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchBlog } from "../../actions";
+import { RichTechComposer } from "../../composer/RichTextComposer.tsx";
 
 class BlogShow extends Component<any, any> {
   componentDidMount() {
@@ -17,7 +18,8 @@ class BlogShow extends Component<any, any> {
     return (
       <div>
         <h3>{title}</h3>
-        <p>{content}</p>
+        {/* <p>{content}</p> */}
+        <RichTechComposer content={content} editable={false} />
       </div>
     );
   }

@@ -43,7 +43,7 @@ import {
   initialValue,
   prismThemeCss,
 } from "./consts/index.ts";
-import { isBlockActive, isMarkActive, toCodeLines } from "./utils/index.ts";
+import { isBlockActive, isMarkActive } from "./utils/index.ts";
 import { LanguageSelect } from "./components/LanguageSelect.tsx";
 
 const CodeBlockButton = () => {
@@ -152,11 +152,14 @@ const renderLeaf = (props: any) => {
 };
 
 type RichTechComposerProps = {
-  onChange: (value: Descendant[]) => void;
+  onChange?: (value: Descendant[]) => void;
   content?: string;
+  editable?: boolean;
 };
 
 export const RichTechComposer = (props: RichTechComposerProps) => {
+  const { editable = true, content = "", onChange = () => {} } = props || {};
+
   const renderElement = useCallback((props) => <Element {...props} />, []);
   const editor = useMemo(() => withHistory(withReact(createEditor())), []);
 
@@ -181,7 +184,7 @@ export const RichTechComposer = (props: RichTechComposerProps) => {
       onChange={handleSlateChange}
       onValueChange={props.onChange}
     >
-      <ToolbarWrapper />
+      {editable && <ToolbarWrapper />}
       <SetNodeToDecorations />
       <Editable
         decorate={decorate}
@@ -192,6 +195,7 @@ export const RichTechComposer = (props: RichTechComposerProps) => {
         autoFocus
         onKeyDown={onKeyDown}
         style={{ padding: "10px", border: "1px solid #ddd", outline: "none" }}
+        disabled={!editable}
       />
       <style>{prismThemeCss}</style>
     </Slate>

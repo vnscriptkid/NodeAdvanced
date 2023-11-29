@@ -1,5 +1,10 @@
 ## TODOs
 
+- Features
+
+  - Upload image
+    - Click button on toolbar, open file dialog, select image, upload to server (store in `public` folder), return url, insert image tag into editor
+
 - Refactor to DDD:
 
   - Ref1: https://github.com/stemmlerjs/white-label
