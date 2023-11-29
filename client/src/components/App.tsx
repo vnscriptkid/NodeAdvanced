@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { connect } from 'react-redux';
-import * as actions from '../actions';
+import React, { Component } from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { connect } from "react-redux";
+import * as actions from "../actions";
 
-import Header from './Header';
-import Landing from './Landing';
-import Dashboard from './Dashboard';
-import BlogNew from './blogs/BlogNew';
-import BlogShow from './blogs/BlogShow';
+import Header from "./Header.tsx";
+import Landing from "./Landing.tsx";
+import Dashboard from "./Dashboard.tsx";
+import BlogNew from "./blogs/BlogNew.tsx";
+import BlogShow from "./blogs/BlogShow.tsx";
 
-class App extends Component {
+class App extends Component<any, any> {
   componentDidMount() {
     this.props.fetchUser();
   }

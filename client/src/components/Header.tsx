@@ -1,8 +1,9 @@
+// @ts-ignore
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-class Header extends Component {
+class Header extends Component<any, any> {
   renderContent() {
     switch (this.props.auth) {
       case null:
@@ -34,7 +35,7 @@ class Header extends Component {
             className="left brand-logo"
             style={{ marginLeft: "10px" }}
           >
-            Blogster
+            ${`vnscriptkid > BLOG`}
           </Link>
           <ul className="right">{this.renderContent()}</ul>
         </div>
